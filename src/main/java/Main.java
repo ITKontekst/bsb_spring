@@ -6,6 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import pl.itkontekst.spring.Config;
 import pl.itkontekst.spring.CustomerService;
+import pl.itkontekst.spring.MyFactoryPostProcessor;
 import pl.itkontekst.spring.OrdersService;
 
 /**
@@ -17,28 +18,10 @@ public class Main {
         ClassPathXmlApplicationContext applicationContext
                 = new ClassPathXmlApplicationContext("/beans.xml");
 
-//        GenericApplicationContext applicationContext = new GenericApplicationContext();
-//        new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("/beans.xml");
-//        new AnnotatedBeanDefinitionReader(applicationContext).register();
-//        AnnotationConfigApplicationContext applicationContext
-//                = new AnnotationConfigApplicationContext();
-//        applicationContext.scan("pl.itkontekst");
-//        applicationContext.getEnvironment().setActiveProfiles("dev","prod");
-//        applicationContext.refresh();
-//        CustomerService customerService
-//                = applicationContext.getBean("customerService",CustomerService.class);
-//        CustomerService customerService2 = applicationContext.getBean(CustomerService.class);
-//        CustomerService customerService2
-//                = new CustomerService();
 
-//        System.out.println("customerSevice: "+ customerService);
-//        System.out.println("customerSevice: "+ customerService2);
-
-//        OrdersService ordersService = applicationContext.getBean("ordersService",OrdersService.class);
-//        System.out.println("ordersService:  " + ordersService.getCustomerService());
-////        ordersService.doSomethingElse();
-//        ordersService.doSomething();
-
+        OrdersService ordersService = applicationContext.getBean("orderServiceXML",OrdersService.class);
+        System.out.println("ordersService:  " + ordersService.getCustomerService());
+        ordersService.doSomething();
 
     }
 }

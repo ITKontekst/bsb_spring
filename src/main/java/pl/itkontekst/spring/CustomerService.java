@@ -1,5 +1,6 @@
 package pl.itkontekst.spring;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
@@ -20,6 +21,8 @@ import org.springframework.stereotype.Service;
 //    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 //    @Controller
 //    @RestController
+@Qualifier("HA")
+@Component
 public class CustomerService {
     public CustomerService() {
         System.out.println("CustomerService() constr");
