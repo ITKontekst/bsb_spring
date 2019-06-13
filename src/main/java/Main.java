@@ -4,7 +4,9 @@ import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
+import pl.itkontekst.spring.Config;
 import pl.itkontekst.spring.CustomerService;
+import pl.itkontekst.spring.OrdersService;
 
 /**
  * Created by Wojciech Oczkowski on 2019-06-13.
@@ -22,9 +24,19 @@ public class Main {
                 = new AnnotationConfigApplicationContext();
         applicationContext.scan("pl.itkontekst");
         applicationContext.refresh();
-        CustomerService customerService = applicationContext.getBean(CustomerService.class);
+//        CustomerService customerService
+//                = applicationContext.getBean("customerService",CustomerService.class);
+//        CustomerService customerService2 = applicationContext.getBean(CustomerService.class);
+//        CustomerService customerService2
+//                = new CustomerService();
 
-        System.out.println("customerSevice: "+ customerService);
+//        System.out.println("customerSevice: "+ customerService);
+//        System.out.println("customerSevice: "+ customerService2);
+
+        OrdersService ordersService = applicationContext.getBean("ordersService",OrdersService.class);
+        System.out.println("ordersService:  " + ordersService);
+        ordersService.doSomethingElse();
+        ordersService.doSomething();
 
 
     }
