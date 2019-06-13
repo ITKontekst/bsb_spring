@@ -2,14 +2,12 @@ package pl.itkontekst.spring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import org.springframework.context.annotation.Profile;
 
 /**
  * Created by Wojciech Oczkowski on 2019-06-13.
  */
 @Configuration
-
 public class Config {
 
 //    @Bean(name = "custService3")
@@ -17,14 +15,27 @@ public class Config {
 //        return new CustomerService();
 //    }
 
-    @Bean(name = "ordersService2")
-    public OrdersService getOrdersService() {
-        return new OrdersService(
-                getCustomerService());
-    }
+//    @Bean(name = "ordersService")
+//    public OrdersService getOrdersService(CustomerService customerService) {
+//        OrdersService ordersService = new OrdersService(
+//        );
+//        ordersService.setCustomerService(customerService);
+//        return ordersService;
+//    }
 
-    @Bean(name = "custService")
+//    @Bean(name = "custService")
+//    @Profile({"dev"})
+//    public CustomerService getCustomerService()
+//    {
+//        return new CustomerService();
+//    }
+    @Bean(name = "custService1")
     public CustomerService getCustomerService()
+    {
+        return new CustomerService();
+    }
+    @Bean(name = "custService2")
+    public CustomerService getCustomerService2()
     {
         return new CustomerService();
     }

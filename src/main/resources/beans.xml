@@ -13,6 +13,14 @@
 ">
     <context:annotation-config/>
     <context:component-scan base-package="pl.itkontekst"/>
-    <bean id="customerService" class="pl.itkontekst.spring.CustomerService"/>
-    <bean id="customerService2" class="pl.itkontekst.spring.CustomerService"/>
+    <!--<bean id="customerService" class="pl.itkontekst.spring.CustomerService"/>-->
+    <!--<bean id="customerService2" class="pl.itkontekst.spring.CustomerService"/>-->
+    <!--<bean id="orderServiceXML" class="pl.itkontekst.spring.OrdersService">-->
+        <!--<property name="serviceNames">-->
+            <!--<util:list>-->
+                <!--<value>myOS</value>-->
+                <!--<ref bean="customerService"/>-->
+            <!--</util:list>-->
+        <!--</property>-->
+    <!--</bean>-->
 </beans>

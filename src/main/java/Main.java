@@ -14,16 +14,17 @@ import pl.itkontekst.spring.OrdersService;
 public class Main {
 
     public static void main(String[] args) {
-//        ClassPathXmlApplicationContext applicationContext
-//                = new ClassPathXmlApplicationContext("/beans.xml");
+        ClassPathXmlApplicationContext applicationContext
+                = new ClassPathXmlApplicationContext("/beans.xml");
 
 //        GenericApplicationContext applicationContext = new GenericApplicationContext();
 //        new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("/beans.xml");
 //        new AnnotatedBeanDefinitionReader(applicationContext).register();
-        AnnotationConfigApplicationContext applicationContext
-                = new AnnotationConfigApplicationContext();
-        applicationContext.scan("pl.itkontekst");
-        applicationContext.refresh();
+//        AnnotationConfigApplicationContext applicationContext
+//                = new AnnotationConfigApplicationContext();
+//        applicationContext.scan("pl.itkontekst");
+//        applicationContext.getEnvironment().setActiveProfiles("dev","prod");
+//        applicationContext.refresh();
 //        CustomerService customerService
 //                = applicationContext.getBean("customerService",CustomerService.class);
 //        CustomerService customerService2 = applicationContext.getBean(CustomerService.class);
@@ -33,10 +34,10 @@ public class Main {
 //        System.out.println("customerSevice: "+ customerService);
 //        System.out.println("customerSevice: "+ customerService2);
 
-        OrdersService ordersService = applicationContext.getBean("ordersService",OrdersService.class);
-        System.out.println("ordersService:  " + ordersService);
-        ordersService.doSomethingElse();
-        ordersService.doSomething();
+//        OrdersService ordersService = applicationContext.getBean("ordersService",OrdersService.class);
+//        System.out.println("ordersService:  " + ordersService.getCustomerService());
+////        ordersService.doSomethingElse();
+//        ordersService.doSomething();
 
 
     }
