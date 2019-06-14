@@ -11,6 +11,10 @@ import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +23,9 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Wojciech Oczkowski on 2019-06-13.
@@ -29,6 +35,9 @@ public class OrdersService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+
+    private OrdersDAO ordersDAO;
 
     private CustomerService customerService;
 
@@ -41,15 +50,19 @@ public class OrdersService {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-    public OrdersService( ) {
-        System.out.println();
+    public OrdersService(OrdersDAO ordersDAO) {
+        this.ordersDAO = ordersDAO;
     }
-
 
     public List<CustomerOrder> getAllOrders(){
-        return entityManager.createQuery("SELECT co FROM CustomerOrder co").getResultList();
+        Page<CustomerOrder> page = ordersDAO.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "description")));
+        return page.stream().collect(Collectors.<CustomerOrder>toList());
+//        return entityManager.createQuery("SELECT co FROM CustomerOrder co").getResultList();
     }
-
+    public List<CustomerOrder> findByDescription(String description){
+        return ordersDAO.findByDescription(description);
+//        return entityManager.createQuery("SELECT co FROM CustomerOrder co").getResultList();
+    }
 
     @EventListener({ContextClosedEvent.class, ContextStartedEvent.class})
     public void incommingEvent(ApplicationContextEvent event){

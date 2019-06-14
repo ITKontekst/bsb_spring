@@ -13,6 +13,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = "/beans.xml")
 //@ActiveProfiles("dev")
 //@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
 public class CustomerServiceTest {
     @ClassRule
     public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
