@@ -47,15 +47,15 @@ public class OrdersService {
     }
 
     @EventListener()
-    @Async
+//    @Async
     public void incommingBussinesEvent(BussinesEvent event){
 
         System.out.println("bussines event Listener" + event);
-        try {
-            Thread.sleep(10000l);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(10000l);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("bussines event Listener2" + event);
 
     }

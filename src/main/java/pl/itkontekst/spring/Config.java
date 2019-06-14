@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.CustomEditorConfigurer;
 import org.springframework.context.annotation.*;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.config.TaskExecutorFactoryBean;
 import pl.itkontekst.spring.editors.MyDBConfigEditor;
 
+import javax.sql.DataSource;
 import java.beans.PropertyEditor;
 import java.util.HashMap;
 
@@ -16,22 +19,16 @@ import java.util.HashMap;
  */
 @Configuration
 @PropertySource("classpath:app.properties")
-@EnableAsync
+//@EnableAsync
 public class Config {
 
     @Bean(name = "custService1")
 //    @Qualifier("HA")
     @Primary
-    public CustomerService getCustomerService()
+    public CustomerService getCustomerService(DataSource ds)
     {
-        return new CustomerService();
+        return new CustomerService(jdbcTemplate(ds),ds);
     }
-    @Bean(name = "custService2")
-    static public CustomerService getCustomerService2()
-    {
-        return new CustomerService();
-    }
-
     @Bean
     static public CustomEditorConfigurer customEditorConfigurer(){
         CustomEditorConfigurer customEditorConfigurer = new CustomEditorConfigurer();
@@ -40,6 +37,12 @@ public class Config {
         customEditorConfigurer.setCustomEditors(editorsMap);
         return  customEditorConfigurer;
     }
+    @Bean
+    public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource){
+
+        return new NamedParameterJdbcTemplate(dataSource);
+    }
+
 
     @Bean
     public TaskExecutorFactoryBean taskExecutor(){

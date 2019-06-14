@@ -3,20 +3,25 @@ package pl.itkontekst.spring;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.Assert.*;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Wojciech Oczkowski on 2019-06-14.
  */
-@ContextConfiguration(classes = {Config.class})
+@ContextConfiguration(locations = "/beans.xml")
 //@ActiveProfiles("dev")
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class CustomerServiceTest {
@@ -25,18 +30,22 @@ public class CustomerServiceTest {
     @Rule
     public final SpringMethodRule SPRING_METHOD_RULE = new SpringMethodRule();
 
-    @Test
-    public void customerServiceTest(){
+    @Autowired
+    private CustomerService customerService;
 
+    @Test
+    @Sql(scripts = "/insert.sql")
+    public void customerServiceTest() {
+
+        List<Customer> allCustomers = customerService.getAllCustomers();
+        assertEquals(1, allCustomers.size());
     }
     @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
-    public void customerServiceTest2(){
+    @Sql(scripts = "/insert.sql")
+    public void findByLastNameAndFirstName() {
 
-    }
-    @Test
-    public void customerServiceTest3(){
-
+        Customer customer = customerService.findByLastNameAndFirstName("Kowalski","Jan");
+        assertNotNull(customer);
     }
 
 }
