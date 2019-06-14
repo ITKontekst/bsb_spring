@@ -17,6 +17,7 @@ public class Main {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext applicationContext
                 = new ClassPathXmlApplicationContext("/beans.xml");
+        applicationContext.registerShutdownHook();
 
 
         OrdersService ordersService = applicationContext.getBean("orderServiceXML",OrdersService.class);

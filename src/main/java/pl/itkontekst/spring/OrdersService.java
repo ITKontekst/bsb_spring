@@ -1,17 +1,21 @@
 package pl.itkontekst.spring;
 
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 
 /**
  * Created by Wojciech Oczkowski on 2019-06-13.
  */
-@Service
+//@Service
 public class OrdersService {
 
     private CustomerService customerService;
@@ -19,7 +23,18 @@ public class OrdersService {
     @Value("${myservicename}")
     private String serviceName;
 
-    public OrdersService() {
+    @Value("${dbconfig}")
+    private MyDBConfig myDBConfig;
+
+
+    public OrdersService( ) {
+        System.out.println();
+    }
+
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("###################################destroy dbconfig: " + myDBConfig );
     }
 
     @Autowired
@@ -42,10 +57,9 @@ public class OrdersService {
     }
 
     public void doSomething(){
-        System.out.println(serviceName.toString() + " " + customerService.toString());
     }
     public void doSomethingElse(){
         System.out.println("else");
     }
-
 }
+

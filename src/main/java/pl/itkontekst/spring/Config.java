@@ -10,8 +10,6 @@ import org.springframework.context.annotation.*;
 @PropertySource("classpath:app.properties")
 public class Config {
 
-
-
     @Bean(name = "custService1")
 //    @Qualifier("HA")
     public CustomerService getCustomerService()
