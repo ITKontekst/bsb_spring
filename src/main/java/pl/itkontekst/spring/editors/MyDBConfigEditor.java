@@ -1,4 +1,4 @@
-package pl.itkontekst.spring;
+package pl.itkontekst.spring.editors;
 
 import org.springframework.stereotype.Component;
 import pl.itkontekst.spring.MyDBConfig;
