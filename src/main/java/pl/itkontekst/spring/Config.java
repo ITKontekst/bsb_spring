@@ -6,6 +6,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.config.TaskExecutorFactoryBean;
 import pl.itkontekst.spring.editors.MyDBConfigEditor;
@@ -41,6 +42,13 @@ public class Config {
     public NamedParameterJdbcTemplate jdbcTemplate(DataSource dataSource){
 
         return new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(DataSource dataSource){
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource);
+        return entityManagerFactoryBean;
     }
 
 

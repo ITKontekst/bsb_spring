@@ -17,12 +17,18 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by Wojciech Oczkowski on 2019-06-13.
  */
 //@Service
 public class OrdersService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private CustomerService customerService;
 
@@ -35,10 +41,15 @@ public class OrdersService {
     @Autowired
     private ApplicationEventPublisher publisher;
 
-
     public OrdersService( ) {
         System.out.println();
     }
+
+
+    public List<CustomerOrder> getAllOrders(){
+        return entityManager.createQuery("SELECT co FROM CustomerOrder co").getResultList();
+    }
+
 
     @EventListener({ContextClosedEvent.class, ContextStartedEvent.class})
     public void incommingEvent(ApplicationContextEvent event){

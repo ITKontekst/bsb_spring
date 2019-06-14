@@ -4,8 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.ReflectionUtils;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -20,12 +23,9 @@ public class OrdersServiceTest {
     private OrdersService ordersService;
 
     @Test
-    public void contextLoads() throws Exception {
+    @Sql(scripts = "/insertOrders.sql")
+    public void testGetAllOrders() throws Exception {
+        List<CustomerOrder> orders = ordersService.getAllOrders();
+        assertEquals(1, orders.size());
     }
-
-    @Test
-    public void doSomethingTest() throws Exception {
-        ordersService.doSomething();
-    }
-
 }
