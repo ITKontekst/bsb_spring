@@ -1,5 +1,6 @@
 package pl.itkontekst.spring;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -47,6 +48,7 @@ public class CustomerService {
         return customerRepository.findById(id).get();
     }
 
+    @Secured("ROLE_ADMIN")
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
