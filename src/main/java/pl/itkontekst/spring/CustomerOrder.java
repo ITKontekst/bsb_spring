@@ -1,5 +1,7 @@
 package pl.itkontekst.spring;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -13,6 +15,7 @@ public class CustomerOrder {
     private Long id;
     private String desc;
     @ManyToOne
+    @JsonIgnore
     private Customer customer;
 
     public CustomerOrder() {
